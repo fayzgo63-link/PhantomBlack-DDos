@@ -73,7 +73,7 @@ func main() {
 				}
 
 				// Selalu tampilkan HTTP status code ke terminal
-				fmt.Printf("Request %d: HTTP Status Code %d\n", reqIndex+1, resp.StatusCode)
+				log.Printf("Request %d: HTTP Status Code %d\n", reqIndex+1, resp.StatusCode)
 
 				// Pastikan body selalu ditutup dengan efisien
 				// Untuk optimasi throughput, baca body minimal: gunakan io.CopyN dengan limit jika body besar, tapi untuk load test sederhana, discard full
