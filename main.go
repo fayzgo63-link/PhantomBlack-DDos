@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"sync"
 	"time"
@@ -111,7 +112,7 @@ func main() {
 			if r.Error != nil {
 				failed++
 				if *verbose {
-					fmt.Printf("[FAIL] Request error: %v (Duration: %s)\n", r.Error, r.Duration.Round(time.Millisecond))
+					log.Printf("[FAIL] Request error: %v (Duration: %s)\n", r.Error, r.Duration.Round(time.Millisecond))
 				}
 				continue
 			}
@@ -120,12 +121,12 @@ func main() {
 				success++
 				totalTime += r.Duration
 				if *verbose {
-					fmt.Printf("[SUCCESS] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
+					log.Printf("[SUCCESS] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
 				}
 			} else {
 				failed++
 				if *verbose {
-					fmt.Printf("[FAIL] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
+					log.Printf("[FAIL] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
 				}
 			}
 		}
