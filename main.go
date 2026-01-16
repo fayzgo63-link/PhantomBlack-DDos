@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"sync"
 	"time"
@@ -73,7 +72,7 @@ func main() {
 				}
 
 				// Selalu tampilkan HTTP status code ke terminal
-				log.Printf("Request %d: HTTP Status Code %d\n", reqIndex+1, resp.StatusCode)
+				fmt.Printf("Request %d: HTTP Status Code %d\n", reqIndex+1, resp.StatusCode)
 
 				// Pastikan body selalu ditutup dengan efisien
 				// Untuk optimasi throughput, baca body minimal: gunakan io.CopyN dengan limit jika body besar, tapi untuk load test sederhana, discard full
@@ -112,7 +111,7 @@ func main() {
 			if r.Error != nil {
 				failed++
 				if *verbose {
-					log.Printf("[FAIL] Request error: %v (Duration: %s)\n", r.Error, r.Duration.Round(time.Millisecond))
+					fmt.Printf("[FAIL] Request error: %v (Duration: %s)\n", r.Error, r.Duration.Round(time.Millisecond))
 				}
 				continue
 			}
@@ -121,12 +120,12 @@ func main() {
 				success++
 				totalTime += r.Duration
 				if *verbose {
-					log.Printf("[SUCCESS] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
+					fmt.Printf("[SUCCESS] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
 				}
 			} else {
 				failed++
 				if *verbose {
-					log.Printf("[FAIL] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
+					fmt.Printf("[FAIL] Status: %d (Duration: %s)\n", r.StatusCode, r.Duration.Round(time.Millisecond))
 				}
 			}
 		}
